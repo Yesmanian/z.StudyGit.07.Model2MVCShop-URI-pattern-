@@ -60,7 +60,7 @@ function fncGetUserList(currentPage) {
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do?menu=${param.menu}" method="post">
+<form name="detailForm" action="/product/listProduct?menu=${param.menu}" method="post">
 
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
@@ -144,7 +144,7 @@ function fncGetUserList(currentPage) {
 			<td align="center">${ i }</td>
 			<td></td>
 			<td align="left">
-				<a href="/getProduct.do?prodNo=${vo.prodNo }&menu=${param.menu }&tranCode=${vo.proTranCode}">${vo.prodName }</a></td>
+				<a href="/product/getProduct?prodNo=${vo.prodNo }&menu=${param.menu }&tranCode=${vo.proTranCode}">${vo.prodName }</a></td>
 			
 			<td></td>
 			<td align="left">${vo.price }</td>
@@ -160,7 +160,7 @@ function fncGetUserList(currentPage) {
 							판매중
 						</c:when>
 						<c:when test="${vo.proTranCode == '1'}">
-							구매완료 ,<a href="/updateTranCodeByProd.do?prodNo=${vo.prodNo }&tranCode=2">배송하기</a>
+							구매완료 ,<a href="/purchase/updateTranCodeByProd?prodNo=${vo.prodNo }&tranCode=2">배송하기</a>
 						</c:when>		
 						<c:when test="${vo.proTranCode == '2'}">
 							배송중

@@ -22,7 +22,7 @@ function fncGetUserList(currentPage) {
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listPurchase.do" method="post">
+<form name="detailForm" action="/purchase/listPurchase" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -108,11 +108,11 @@ function fncGetUserList(currentPage) {
 		<tr class="ct_list_pop">
 			<td align="center">
 				
-				<a href="/getPurchase.do?tranNo=${vo.tranNo }&tranCode=${vo.tranCode}">${i }</a>	
+				<a href="/purchase/getPurchase?tranNo=${vo.tranNo }&tranCode=${vo.tranCode}">${i }</a>	
 			</td>
 			<td></td>
 			<td align="left">
-				<a href="/getUser.do?userId=${vo.buyer.userId }">${vo.buyer.userId }</a>
+				<a href="/user/getUser?userId=${vo.buyer.userId }">${vo.buyer.userId }</a>
 			<td></td>
 			<td align="left">${user.userName }</td>
 			<td></td>
@@ -143,7 +143,7 @@ function fncGetUserList(currentPage) {
 						tranCode 1
 					</c:when>
 					<c:when test="${vo.tranCode == '2'}">
-						<a href="/updateTranCode.do?tranNo=${vo.tranNo }&tranCode=3">¹°°ÇµµÂø</a>
+						<a href="/purchase/updateTranCode?tranNo=${vo.tranNo }&tranCode=3">¹°°ÇµµÂø</a>
 					</c:when>
 					<c:when test="${vo.tranCode == '3'}">
 						tranCode 3

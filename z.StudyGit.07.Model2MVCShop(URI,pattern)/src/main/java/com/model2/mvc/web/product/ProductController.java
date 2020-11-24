@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +24,7 @@ import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.product.ProductService;
 
 @Controller
+@RequestMapping("/product/*")
 public class ProductController {
 	
 	
@@ -46,12 +48,13 @@ public class ProductController {
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-	@RequestMapping("/addProduct.do")
+	//@RequestMapping("/addProduct.do")
+	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
 	public	ModelAndView addProduct(@ModelAttribute("product")Product product) throws Exception {
 		
-		System.out.println("/addProduct.do start");
+		System.out.println("/addProduct start");
 		
-		System.out.println("[addProduct.do]  "+product);
+		System.out.println("[addProduct]  "+product);
 		
 		//Business Logic
 		String originalManuDate = product.getManuDate();
@@ -66,16 +69,17 @@ public class ProductController {
 		modelAndView.setViewName("forward:/product/addProduct.jsp");
 		modelAndView.addObject("vo", product);
 		
-		System.out.println("/addProduct.do end");
+		System.out.println("/addProduct end");
 		
 		return modelAndView;
 		
 	}
 	
-	@RequestMapping("/getProduct.do")
+	//@RequestMapping("/getProduct.do")
+	@RequestMapping(value = "getProduct")
 	public ModelAndView getProduct(HttpServletRequest request,HttpServletResponse response) throws  Exception {
 		
-		System.out.println("/getProduct.do Start...");
+		System.out.println("/getProduct Start...");
 		
 		//Business Logic
 		Product product = productService.getProduct(Integer.parseInt(request.getParameter("prodNo")));
@@ -118,17 +122,18 @@ public class ProductController {
 		}
 		
 		
-		System.out.println("/getProduct.do End...");
+		System.out.println("/getProduct End...");
 		return modelAndView;
 	}
 	
 	
 	
 	
-	@RequestMapping("/listProduct.do")
+	//@RequestMapping("/listProduct.do")
+	@RequestMapping(value = "listProduct")
 	public ModelAndView listProduct(@ModelAttribute("search") Search search , Model model , HttpServletRequest request) throws Exception{
 		
-		System.out.println("/listProduct.do start..");
+		System.out.println("/listProduct start..");
 		
 		if(search.getCurrentPage() ==0 ){
 			search.setCurrentPage(1);
@@ -155,16 +160,17 @@ public class ProductController {
 		modelAndView.addObject("resultPage", resultPage);
 		modelAndView.addObject("search", search);
 
-		System.out.println("/listProduct.do end..");
+		System.out.println("/listProduct end..");
 		return modelAndView;
 	}
 	
 	
 	
-	@RequestMapping("/updateProduct.do")
+	//@RequestMapping("/updateProduct.do")
+	@RequestMapping(value = "updateProduct" , method = RequestMethod.POST)
 	public ModelAndView updateProduct(@ModelAttribute("product")Product product) throws Exception {
 		
-		System.out.println("/updateProduct.do Start...");
+		System.out.println("/updateProduct Start...");
 		
 		//Business Logic
 		System.out.println(product.getManuDate());
@@ -181,18 +187,18 @@ public class ProductController {
 		
 		//modelandview
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("forward:/getProduct.do?prodNo="+product.getProdNo());
+		modelAndView.setViewName("forward:/product/getProduct?prodNo="+product.getProdNo());
 		modelAndView.addObject("vo", product);
 		
 		
 		
 		
-		System.out.println("/updateProduct.do End...");
+		System.out.println("/updateProduct End...");
 		return modelAndView;
 	}
 	
 	
-//	@RequestMapping("/updateProductView.do")
+//	@RequestMapping("/updateProductView")
 	
 	
 	
