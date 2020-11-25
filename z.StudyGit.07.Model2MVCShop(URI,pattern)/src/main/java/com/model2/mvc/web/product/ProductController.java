@@ -1,12 +1,15 @@
 package com.model2.mvc.web.product;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.model2.mvc.common.Page;
@@ -50,7 +55,7 @@ public class ProductController {
 	
 	//@RequestMapping("/addProduct.do")
 	@RequestMapping(value = "addProduct", method = RequestMethod.POST)
-	public	ModelAndView addProduct(@ModelAttribute("product")Product product) throws Exception {
+	public	ModelAndView addProduct(@ModelAttribute("product")Product product,@RequestParam("file")MultipartFile multipartFile) throws Exception {
 		
 		System.out.println("/addProduct start");
 		
@@ -61,10 +66,22 @@ public class ProductController {
 		String[] splitManuData = originalManuDate.split("-");
 		String manuDate = String.join("", splitManuData);
 		product.setManuDate(manuDate);
+		
+		//fileadd
+		product.setFileName(multipartFile.getOriginalFilename());
+		
 		productService.addProduct(product);
 		
+		//file
+		File targetFile = new File("C:\\Users\\doyeon\\git\\rz.StudyGit.07.Model2MVCShop(URI,pattern)\\z.StudyGit.07.Model2MVCShop(URI,pattern)\\WebContent\\images\\uploadFiles"
+						,multipartFile.getOriginalFilename());
+		multipartFile.transferTo(targetFile);
+		
+		System.out.println(targetFile.getName());
 		
 		
+		
+		//modelandview
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("forward:/product/addProduct.jsp");
 		modelAndView.addObject("vo", product);

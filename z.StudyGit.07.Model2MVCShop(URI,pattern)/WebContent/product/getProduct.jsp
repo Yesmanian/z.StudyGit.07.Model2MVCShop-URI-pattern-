@@ -73,10 +73,8 @@
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		
-			<td class="ct_write01">${vo.fileName }</td>
-			<!-- <img src = "/images/uploadFiles/AHlbAAAAug1vsgAA.jpg"/> 
-				<img src = "<!%=vo.getFileName %> %>%>"/>
-			-->
+			<td class="ct_write01"></td>
+			<img src = "/images/uploadFiles/${vo.fileName }"/> 
 		
 	</tr>
 	<tr>
