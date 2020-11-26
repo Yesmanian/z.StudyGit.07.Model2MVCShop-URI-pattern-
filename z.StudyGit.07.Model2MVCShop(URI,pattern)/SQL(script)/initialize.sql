@@ -51,6 +51,17 @@ CREATE TABLE transaction (
 	PRIMARY KEY(tran_no)
 );
 
+CREATE TABLE picture (
+
+	pic_no	NUMBER	NOT NULL,
+	pic_name VARCHAR2(100)
+
+);
+
+
+
+
+
 
 INSERT 
 INTO users ( user_id, user_name, password, role, ssn, cell_phone, addr, email, reg_date ) 

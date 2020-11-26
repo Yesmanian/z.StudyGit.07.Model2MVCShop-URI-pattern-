@@ -3,6 +3,7 @@ package com.model2.mvc.web.product;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -213,6 +214,59 @@ public class ProductController {
 		System.out.println("/updateProduct End...");
 		return modelAndView;
 	}
+	
+	
+	@RequestMapping(value = "listPicture")
+	public ModelAndView listPicture() {
+		
+		System.out.println("/listPicture.do Start....");
+		
+		
+		
+		//ModelAndView
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("forward:/product/listPicture.jsp");
+		
+		
+		
+		
+		System.out.println("/listPicture.do End....");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "addPicture")
+	public ModelAndView addPicture(@RequestParam("file")List<MultipartFile> multipartFiles) throws IllegalStateException, IOException {
+		
+		System.out.println("/addPicture.do Start....");
+		
+		//Business Logic
+		//fileadd
+//		product.setFileName(multipartFile.getOriginalFilename());
+//		
+//		productService.addProduct(product);
+		
+		//file
+		for(MultipartFile multipartFile : multipartFiles) {
+		File targetFile = new File("C:\\Users\\doyeon\\git\\rz.StudyGit.07.Model2MVCShop(URI,pattern)\\z.StudyGit.07.Model2MVCShop(URI,pattern)\\WebContent\\images\\uploadFiles"
+						,multipartFile.getOriginalFilename());
+		multipartFile.transferTo(targetFile);
+		
+		System.out.println(targetFile.getName());
+		}
+		//ModelAndView
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("forward:/product/listPicture.jsp");
+		
+		
+		
+		
+		System.out.println("/addPicture.do End....");
+		return modelAndView;
+	}
+	
+	
+	
+	
 	
 	
 //	@RequestMapping("/updateProductView")
